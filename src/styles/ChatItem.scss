@@ -1,0 +1,30 @@
+.chat__item{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+    height: 50px;
+    &.my{
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+}
+
+.item{
+    &__message-body{
+        padding: 0 5px;
+    }
+    &__user-avatar{
+        padding: 0 5px;
+        height: 30px;
+        width: 30px;
+        & > img{
+            border-radius: 50%;
+            height: 100%;
+            width: 100%;
+        }
+    }
+    &__date{
+        padding: 0 5px;
+    }
+}

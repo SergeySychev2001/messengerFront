@@ -1,0 +1,33 @@
+.news-list-item{
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 10px;
+    background-color: blue;
+    border-radius: 5px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    &:last-child{
+        margin-bottom: 20px;
+    }
+    & .item {
+        &__text{
+            word-wrap: break-word;
+        }
+        &__info{
+            display: flex;
+            justify-content: flex-end;
+        }
+        &__user{
+            color: blue;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        &__data{
+            color: blue;
+            font-weight: 600;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+    }
+}

@@ -1,0 +1,26 @@
+.subscribtions-item{
+    padding: 20px;
+    width: 100px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    transition-duration: 0.2s;
+    cursor: pointer;
+    &:hover{
+        transform: scale(120%);
+    }
+}
+
+.item{
+    &__img{
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+    }
+    &__name{
+        white-space: nowrap;
+        overflow: hidden;
+        text-align: center;
+        color: white;
+    }
+}

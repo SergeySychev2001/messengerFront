@@ -1,0 +1,20 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  display: flex;
+  margin: 0 !important;
+}
+
+#root {
+  flex: 1;
+  height: 100%;
+}
+
+.app {
+  height: 100%;
+  width: 100%;
+  background-color: #1B2450;
+}

@@ -1,0 +1,58 @@
+.user{
+    width: 400px;
+    margin: 20px;
+    height: 500px;
+    background-color: rgba($color: #000, $alpha: 0.3);
+    border-radius: 5px;
+    border: 1px solid rgb(55, 55, 55);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    box-sizing: border-box;
+    &__avatar{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition-duration: 0.2s;
+        & > img{
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
+        }
+        &:hover{
+            transform: scale(110%, 110%) !important;
+            opacity: 0.9 !important;
+        }
+    }
+    &__data{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    &__edit{
+        height: 50px;
+        width: 200px;
+        font-size: 20px;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        background-color: #3f52ff;
+        cursor: pointer;
+    }
+   
+}
+
+.data{
+    &__item{
+        border-bottom: 1px solid white;
+        font-size: 20px;
+        text-align: center;
+        margin-top: 14px;
+        width: 200px;
+        height: 24px;
+        color: white;
+    }
+}

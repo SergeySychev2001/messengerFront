@@ -1,0 +1,50 @@
+.subscribtions-list{
+    height: 440px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    &__form{
+        display: flex; 
+        width: 100%;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+    &__result{
+        border-radius: 5px;
+        height: 450px;
+        box-sizing: border-box;
+        display: grid;
+        grid-template: repeat(1, 166px) / repeat(3, 166px);
+        grid-auto-flow: row;
+        justify-items: center;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        background-color: rgba($color: #000, $alpha: 0.3);
+        border: 1px solid rgb(55, 55, 55);
+        &::-webkit-scrollbar{
+            width: 0;
+        }
+    }
+}
+
+.form{
+    &__input{
+        width: 100%;
+        height: 40px;
+        font-size: 20px;
+        border-radius: 5px;
+        border: 1px solid rgb(139, 139, 255);
+        box-sizing: border-box;
+    }
+    &__submit{
+        width: 25%;
+        height: 40px;
+        border-radius: 5px;
+        border: 0;
+        background-color: rgb(123, 131, 255);
+        font-weight: 700;
+        cursor: pointer;
+    }
+}

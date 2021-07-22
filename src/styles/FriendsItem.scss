@@ -1,0 +1,34 @@
+.friends{
+    &__item{
+        // position: relative;
+        padding: 5px 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        // &::after{
+        //     position: absolute;
+        //     content: '';
+        //     top: 99%;
+        //     left: 50%;
+        //     transform: translateX(-50%);
+        //     width: 100px;
+        //     height: 1px;
+        //     background-color: rgb(156, 163, 255);
+        // }
+        &:hover{
+            background-color: rgb(244, 246, 255);
+            box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.5);
+        }
+        &:nth-child(1){
+            margin-top: 5px;
+        }
+        & span{
+            &:nth-child(1){
+                margin-right: 5px;
+            }
+            &:nth-child(2){
+                margin-left: 5px;
+            }
+        }
+    }
+}

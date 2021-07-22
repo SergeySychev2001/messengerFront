@@ -1,0 +1,51 @@
+.user-avatar-edit-modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &__container{
+        position: relative;
+        box-sizing: border-box;
+        border-radius: 5px;
+        width: 300px;
+        height: 200px;
+        padding: 30px 30px;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+    &__close{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+    }
+    &__title{
+        text-align: center;
+        font-weight: 600;
+    }
+    &__file{
+        text-align: center;
+        width: 240px;
+    }
+    &__submit{
+        height: 50px;
+        width: 70%;
+        font-size: 20px;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        background-color: #2D3CC0;
+        cursor: pointer;
+    }
+}

@@ -1,0 +1,25 @@
+.chat__input{
+    background-color: #93a4ff;
+    height: 50px;
+}
+
+.input__form{
+    padding: 0 20px;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    & > input[type="text"]{
+        flex: 1;
+        margin-right: 20px;
+    }
+    & > input[type="submit"]{
+        height: 30px;
+        width: 150px;
+        background-color: #e2e5fd;
+        border: 0;
+        color: black;
+    }
+}
