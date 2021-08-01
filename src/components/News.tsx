@@ -10,7 +10,7 @@ const News: React.FC = () => {
     const [newsAddModal, setNewsAddModal] = useState<boolean>(false);
     return(
         <>
-            {newsAddModal ? <NewsAddModal exitModal={() => setNewsAddModal(false)}/> : null}
+            {newsAddModal ? <NewsAddModal my exitModal={() => setNewsAddModal(false)}/> : null}
             <div className="news">
                 <div className="news__type-selector">
                     <div className={location.pathname === '/news/my' 

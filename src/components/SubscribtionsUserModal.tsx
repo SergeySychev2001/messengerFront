@@ -34,7 +34,10 @@ const SubscribtionsUserModalContainer: React.FC<SubscribtionsUserModalContainerP
 }) => {
     const {subscribtionsList} = useTypedSelector(state => state.subscriptions);
     const {list} = subscribtionsList;
-    const {subscribtionsListIsLoaded} = useActions();
+    const {
+        subscribtionsListIsLoaded,
+        notificationsListItemIsAdded
+    } = useActions();
     const [errModal, setErrModal] = useState<string | null>(null);
     const [submitBtn, setSubmitBtn] = useState<string>('Загрузка');
 
@@ -78,6 +81,7 @@ const SubscribtionsUserModalContainer: React.FC<SubscribtionsUserModalContainerP
             .then( async (res) => {
                 const response: string = await res.json();
                 if (res.status === 200) {
+                    notificationsListItemIsAdded(`Вы подписались на пользователя ${surname} ${name}`);
                     setSubmitBtn('Отписаться'); 
                 }
                 if (res.status === 500) {
@@ -100,6 +104,7 @@ const SubscribtionsUserModalContainer: React.FC<SubscribtionsUserModalContainerP
             .then(async (res) => {
                 const response: string = await res.json();
                 if (res.status === 200) {
+                    notificationsListItemIsAdded(`Вы отписались от пользователя ${surname} ${name}`);
                     if(!isAll){
                         const newList: UserType[] | null = list
                         ? list.filter(({id}) => id !== response)

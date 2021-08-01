@@ -1,4 +1,16 @@
 .news-list{
+    &__search{
+        width: 80%;
+        height: 40px;
+        border: 1px solid #8b8bff;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        font-size: 20px;
+        box-sizing: border-box;
+    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     flex-shrink: 1;
     flex-grow: 1;
     width: 600px;

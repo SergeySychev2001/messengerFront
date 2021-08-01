@@ -53,8 +53,8 @@ const Authorization: React.FC<AuthorizationProps> = ({history}) => {
     return(
         <div className="authorization">
             <form onSubmit={handleSubmit} className="authorization__form">
-                <input name="login" className="form__input" type="text" placeholder="Логин"/>
-                <input name="password" className="form__input" type="password" placeholder="Пароль" />
+                <input name="login" autoComplete="false" className="form__input" type="text" placeholder="Логин"/>
+                <input name="password" autoComplete="false" className="form__input" type="password" placeholder="Пароль" />
                 {error}
                 <input className="form__submit" type="submit" value="Войти" />
                 <Link className="form__reg-btn" to="/registration">Зарегистрироваться</Link>

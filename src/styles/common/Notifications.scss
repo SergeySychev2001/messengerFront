@@ -1,0 +1,48 @@
+.notifications{
+    position: absolute;
+    top: 100px;
+    right: 20px;
+    &__container{
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+    }
+    &__item{
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding-left: 5px;
+        box-sizing: border-box;
+        width: 100%;
+        min-height: 50px;
+        background-color: rgb(112, 156, 221);
+        border-radius: 5px;
+        margin-bottom: 10px;
+        transition: opacity 0.3s;
+        animation: notification 0.3s;
+        @keyframes notification {
+            0%{
+                transform: translateX(50%);
+                opacity: 0;
+            }
+            100%{
+                transform: translateX(0%);
+                opacity: 1;
+            }
+        }
+        & .item{
+            &__close{
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                cursor: pointer;
+            }
+            &__value{
+                color: white;
+                word-wrap: break-word;
+                width: 90%;
+            }
+        }
+    }
+}

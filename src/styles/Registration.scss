@@ -15,6 +15,45 @@
         flex-direction: column;
         align-items: center;
         justify-content: space-evenly;
+        & .form{
+            &__input{
+                width: 90%;
+                height: 40px;
+                font-size: 20px;
+                border-radius: 5px;
+                border: 1px solid rgb(139, 139, 255);
+                box-sizing: border-box;
+            }
+            &__submit{
+                width: 60%;
+                height: 40px;
+                border-radius: 5px;
+                border: 0;
+                background-color: rgb(123, 131, 255);
+                font-weight: 700;
+                cursor: pointer;
+            }
+            &__date_of_birth{
+                width: 90%;
+                display: flex;
+                justify-content: flex-start;
+                & .form__input{
+                    width: 20%;
+                    margin-right: 3%;
+                    &:nth-child(1){
+                        height: 100%;
+                    }
+                    &:nth-child(2){
+                        height: 100%;
+                        width: 33%;
+                    }
+                    &:nth-child(3){
+                        margin: 0;
+                        flex: 1;
+                    }
+                }
+            }
+        }
     }
     &__exit{
         position: absolute;
@@ -34,42 +73,3 @@
     }
 }
 
-.form{
-    &__input{
-        width: 90%;
-        height: 40px;
-        font-size: 20px;
-        border-radius: 5px;
-        border: 1px solid rgb(139, 139, 255);
-        box-sizing: border-box;
-    }
-    &__submit{
-        width: 60%;
-        height: 40px;
-        border-radius: 5px;
-        border: 0;
-        background-color: rgb(123, 131, 255);
-        font-weight: 700;
-        cursor: pointer;
-    }
-    &__date_of_birth{
-        width: 90%;
-        display: flex;
-        justify-content: flex-start;
-        & .form__input{
-            width: 20%;
-            margin-right: 3%;
-            &:nth-child(1){
-                height: 100%;
-            }
-            &:nth-child(2){
-                height: 100%;
-                width: 33%;
-            }
-            &:nth-child(3){
-                margin: 0;
-                flex: 1;
-            }
-        }
-    }
-}

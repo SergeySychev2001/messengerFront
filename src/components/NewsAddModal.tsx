@@ -4,16 +4,21 @@ import closeBtn from '../image/close-btn.svg';
 import { ReactEventHandler } from "react";
 import { Modal } from './common/index';
 import { useState } from "react";
+import { useActions } from "../hooks/useActions";
 
 type NewsAddModalContainerProps = {
-    exitModal: () => void
+    exitModal: () => void,
+    my?: boolean
 }
 
 const NewsAddModalContainer: React.FC<NewsAddModalContainerProps> = ({
-    exitModal
+    exitModal,
+    my
 }) => {
 
     const [errModal, setErrorModal] = useState<string | null>(null);
+    const { myNewsListItemIsAdded,
+            notificationsListItemIsAdded } = useActions();
 
     const handleSubmit = (e: React.FormEvent): void => {
         e.preventDefault();
@@ -39,6 +44,11 @@ const NewsAddModalContainer: React.FC<NewsAddModalContainerProps> = ({
         .then( async (res) => {
             const response = await res.json();
             if(res.status === 200){
+                notificationsListItemIsAdded('Новость добавлена');
+                if(my){
+                    console.log(response)
+                    myNewsListItemIsAdded(response);
+                };
                 exitModal();
             }
             if(res.status === 500){

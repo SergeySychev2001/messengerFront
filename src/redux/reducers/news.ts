@@ -47,6 +47,31 @@ const reducer = (state = initialState, action: ActionType): NewsStateType => {
                     error: action.error
                 }
             }
+        case 'MY_NEWS_LIST_ITEM_IS_DELETED': {
+            const newsId = state.my.list?.findIndex(({id}) => id === action.id);
+            const newNewsList = newsId !== undefined && state.my.list 
+            ? [state.my.list.slice(0, newsId), state.my.list.slice(newsId + 1)].flat() 
+            : state.my.list;
+            return{
+                ...state,
+                my: {
+                    ...state.my,
+                    list: newNewsList ? newNewsList.length > 0 ? newNewsList : null : null
+                }
+            }
+        }
+        case 'MY_NEWS_LIST_ITEM_IS_ADDED':
+            const newNewsList = state.my.list 
+            ? [action.newNewsItem, ...state.my.list.slice(0)] 
+            : [action.newNewsItem];
+            return{
+                ...state,
+                my: {
+                    ...state.my,
+                    error: null,
+                    list: newNewsList
+                }
+            }
         case 'SUBSCRIBTIONS_NEWS_LIST_IS_FETCH':
             return{
                 ...state,
@@ -99,6 +124,32 @@ const reducer = (state = initialState, action: ActionType): NewsStateType => {
                     list: null,
                     isLoading: false,
                     error: action.error
+                }
+            }
+            case 'FAVOURITES_NEWS_LIST_ITEM_IS_DELETED': {
+                const newsId = state.my.list?.findIndex(({id}) => id === action.id);
+                const newNewsList = newsId !== undefined && state.my.list 
+                ? [state.my.list.slice(0, newsId), state.my.list.slice(newsId + 1)].flat() 
+                : state.my.list;
+                return{
+                    ...state,
+                    my: {
+                        ...state.my,
+                        list: newNewsList ? newNewsList.length > 0 ? newNewsList : null : null
+                    }
+                }
+            }
+            case 'FAVOURITES_NEWS_LIST_ITEM_IS_ADDED': {
+                const newNewsList = state.my.list 
+                ? [action.newNewsItem, ...state.my.list.slice(0)] 
+                : [action.newNewsItem];
+                return{
+                    ...state,
+                    my: {
+                        ...state.my,
+                        error: null,
+                        list: newNewsList
+                    }
                 }
             }
         default: return {...state};
