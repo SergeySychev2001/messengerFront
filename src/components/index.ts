@@ -2,12 +2,12 @@ import Header from "./Header";
 import Main from "./Main";
 import Account from './User';
 import Messages from "./Messages";
-import Chat from "./Chat";
-import Friends from "./Friends";
-import FriendsItem from "./FriendsItem";
-import ChatInput from "./ChatInput";
-import ChatBody from "./ChatBody";
-import ChatItem from "./ChatItem";
+import MessagesChat from "./MessagesChat";
+import MessagesFriends from "./MessagesFriends";
+import MessagesFriendsItem from "./MessagesFriendsItem";
+import MessagesChatInput from "./MessagesChatInput";
+import MessagesChatBody from "./MessagesChatBody";
+import MessagesChatItem from "./MessagesChatItem";
 import Authorization from "./Authorization";
 import Registration from "./Registration";
 import UserEditModal from "./UserEditModal";
@@ -20,18 +20,19 @@ import SubscribtionsUserModal from "./SubscribtionsUserModal";
 import NewsList from "./NewsList";
 import NewsListItem from "./NewsListItem";
 import NewsAddModal from "./NewsAddModal";
+import MessageModal from "./MessageModal";
 
 export {
     Header,
     Main,
     Account,
     Messages,
-    Chat,
-    Friends,
-    FriendsItem,
-    ChatInput,
-    ChatBody,
-    ChatItem,
+    MessagesChat,
+    MessagesFriends,
+    MessagesFriendsItem,
+    MessagesChatInput,
+    MessagesChatBody,
+    MessagesChatItem,
     Authorization,
     Registration,
     UserEditModal,
@@ -43,5 +44,6 @@ export {
     SubscribtionsUserModal,
     NewsList,
     NewsListItem,
-    NewsAddModal
+    NewsAddModal,
+    MessageModal
 }

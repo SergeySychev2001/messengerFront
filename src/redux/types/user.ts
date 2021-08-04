@@ -1,30 +1,22 @@
+type UserStateType = {
+    userData: UserType | null,
+    loading: boolean,
+    error: string | null
+}
+
 type UserType = {
-    id: string | null,
-    name: string | null,
-    surname: string | null,
+    id: string,
+    name: string,
+    surname: string,
     avatar: boolean,
-    day: number | null,
-    month: number | null,
-    year: number | null,
-    city: string | null,
-    error: string | null,
-    loading: boolean
+    day: number,
+    month: number,
+    year: number,
+    city: string | null
 }
 
 type UserIsFetchType = {
-    type: 'USER_IS_FETCH',
-    payload: {
-        id: 'Загрузка',
-        name:'Загрузка',
-        surname: 'Загрузка',
-        day: 0,
-        month: 0,
-        year: 0,
-        city: 'Загрузка',
-        error: null,
-        loading: true,
-        avatar: false
-    }   
+    type: 'USER_IS_FETCH'  
 }
 
 type UserIsLoadedType = {
@@ -32,48 +24,27 @@ type UserIsLoadedType = {
     payload: UserType
 }
 
-type UserIsRemovedType = {
-    type: 'USER_IS_REMOVED',
-    payload: {
-        id: null,
-        name: null,
-        surname: null,
-        avatar: false,
-        day: null,
-        month: null,
-        year: null,
-        city: null,
-        error: null,
-        loading: false
-    }
-}
-
 type UserIsFailedType = {
     type: 'USER_IS_FAILED',
-    payload: {
-        id: null,
-        name: null,
-        surname: null,
-        avatar: false,
-        day: null,
-        month: null,
-        year: null,
-        city: null,
-        error: string,
-        loading: false
-    }
+    error: string
+}
+
+type UserAvatarIsFetch = {
+    type: 'USER_AVATAR_IS_FETCH'
 }
 
 type ActionType = {
-    type: 'USER_IS_FETCH' | 'USER_IS_LOADED' | 'USER_IS_REMOVED' | 'USER_IS_FAILED',
-    payload: UserType
+    type: 'USER_IS_FETCH' | 'USER_IS_LOADED' | 'USER_IS_FAILED' | 'USER_AVATAR_IS_FETCH',
+    payload: UserType,
+    error: string
 }
 
 export type {
+    UserStateType,
     UserType,
     UserIsFetchType,
     UserIsLoadedType,
-    UserIsRemovedType,
     UserIsFailedType,
+    UserAvatarIsFetch,
     ActionType
 }

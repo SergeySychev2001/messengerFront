@@ -1,5 +1,6 @@
 html{
     height: 100%;
+    overflow-x: hidden;
 }
 
 body{
@@ -19,4 +20,8 @@ body{
     display: flex;
     flex-direction: column;
     font-family: 'Roboto', sans-serif;
+}
+
+textarea:focus, input:focus{
+    outline: none;
 }

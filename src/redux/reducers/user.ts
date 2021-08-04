@@ -1,41 +1,38 @@
-import { UserType, ActionType} from '../types/user';
+import { UserStateType, ActionType} from '../types/user';
 
-const initialState: UserType = {
-    id: null,
-    name: null,
-    surname: null,
-    avatar: false,
-    city: null,
-    day: null,
-    month: null,
-    year: null,
-    error: null,
-    loading: false
+const initialState: UserStateType = {
+    userData: null,
+    loading: false,
+    error: null
 }
 
-const reducer = (state = initialState, action: ActionType): UserType => {
+const reducer = (state = initialState, action: ActionType): UserStateType => {
     switch(action.type){
         case 'USER_IS_FETCH':
             return {
-                ...state,
-                ...action.payload
+                userData: null,
+                loading: true,
+                error: null
             };
         case 'USER_IS_LOADED':
             return {
-                ...state,
-                ...action.payload
-            };
-        case 'USER_IS_REMOVED':
-            return {
-                ...state,
-                ...action.payload
+                userData: action.payload,
+                error: null,
+                loading: false
             };
         case 'USER_IS_FAILED':
-            console.log(action.payload)
+            return {
+                userData: null,
+                loading: false,
+                error: action.error
+            }
+        case 'USER_AVATAR_IS_FETCH': {
+            const newUserData = state.userData ? {...state.userData, avatar: false} : null;
             return {
                 ...state,
-                ...action.payload
+                userData: newUserData
             }
+        }
         default: return {...state};
     }
 }

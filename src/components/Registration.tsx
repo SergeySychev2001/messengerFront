@@ -1,18 +1,17 @@
 import React from "react";
 import { useState } from "react";
-import { withRouter, Link } from "react-router-dom";
-import { Modal } from "./common";
+import { Link, useHistory } from "react-router-dom";
+import { Modal, Notifications } from "./common";
 import '../styles/Registration.scss';
 import leftArrow from '../image/left-arrow.svg';
+import { useActions } from "../hooks/useActions";
 
-type RegistrationProps = {
-    history: any;
-}
-
-const Registration: React.FC<RegistrationProps> = ({history}) => {
+const Registration: React.FC = () => {
 
     const [errorModal, setErrorModal] = useState<boolean>(false);
     const [passwordError, setPasswordError] = useState<object>({});
+    const history = useHistory();
+    const { notificationsListItemIsAdded } = useActions();
 
     const handleSubmit = (e: React.SyntheticEvent) : void => {
 
@@ -36,7 +35,7 @@ const Registration: React.FC<RegistrationProps> = ({history}) => {
             target.password.value === '' ||
             target.repeatPassword.value === '' ||
             target.name.value === ''){
-                setErrorModal(true);
+                notificationsListItemIsAdded('Пожалуйста, заполните все поля');
         } else {
             setErrorModal(false);
             if(target.password.value === target.repeatPassword.value){
@@ -70,17 +69,15 @@ const Registration: React.FC<RegistrationProps> = ({history}) => {
         
     }
 
-    const modal: any = errorModal ? <Modal exitModal={() => setErrorModal(false)} text="Пожалуйста, заполните все поля"/> : null;
-
     return(
         <div className="registration">
+            <Notifications/>
             <div className="registration__exit">
                 <Link to="/authorization">
                 <img src={leftArrow} alt="<--" />
                 <span>Вернуться</span>
                 </Link>
             </div>
-            {modal}
             <form onSubmit={handleSubmit} className="registration__form">
                 <input name="name" className="form__input" type="text" placeholder="Имя"/>
                 <input name="surname" className="form__input" type="text" placeholder="Фамилия"/>
@@ -144,4 +141,4 @@ const Registration: React.FC<RegistrationProps> = ({history}) => {
     )
 }
 
-export default withRouter(Registration); 
+export default Registration; 

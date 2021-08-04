@@ -1,5 +1,4 @@
-import { Dispatch } from 'react';
-import { NotificationsListItemIsAdded, NotificationsListItemIsDeleted, NotificationType } from '../types/notifications';
+import { NotificationsListItemIsAdded, NotificationsListItemIsDeleted } from '../types/notifications';
 
 const notificationsListItemIsAdded = (value: string): NotificationsListItemIsAdded => {
     const id = Math.floor(Math.random() * 10000);

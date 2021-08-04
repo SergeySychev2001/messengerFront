@@ -1,17 +1,17 @@
 import React from "react";
-import '../styles/ChatItem.scss';
+import '../styles/MessagesChatItem.scss';
 
-type ChatItemProps = {
+type MessagesChatItemProps = {
     myMessage?: boolean;
     date: string;
     messageBody: string;
     userAvatar: string;
 }
 
-const ChatItem: React.FC<ChatItemProps> = ({date, messageBody, userAvatar, myMessage}) => {
+const MessagesChatItem: React.FC<MessagesChatItemProps> = ({date, messageBody, userAvatar, myMessage}) => {
     if(myMessage){
         return(
-            <div className="chat__item my">
+            <div className="messages-chat-item">
                 <div className="item__message-body">{messageBody}</div>
                 <div className="item__user-avatar">
                     <img src={userAvatar} alt="" />
@@ -33,4 +33,4 @@ const ChatItem: React.FC<ChatItemProps> = ({date, messageBody, userAvatar, myMes
     
 }
 
-export default ChatItem;
+export default MessagesChatItem;

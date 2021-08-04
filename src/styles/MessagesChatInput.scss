@@ -1,0 +1,30 @@
+.messages-chat-input{
+    background-color: rgba($color: #000, $alpha: 0.5);
+    height: 50px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    & .input__form{
+        padding: 0 20px;
+        box-sizing: border-box;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        & .form{
+            &__text{
+                width: 70%;
+                height: 30px;
+                border-radius: 5px;
+                border: none;
+            }
+            &__submit{
+                width: 20%;
+                height: 30px;
+                box-sizing: content-box;
+                border-radius: 5px;
+                border: none;
+            }
+        }
+    }
+}

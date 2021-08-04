@@ -1,22 +1,7 @@
 .messages{
-    height: 500px;
     width: 900px;
     display: flex;
     margin: 20px;
     justify-content: space-between;
-    &__friends{
-        box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.5);
-        border-radius: 5px;
-        background-color: #fff;
-        height: 100%;
-        width: 27%;
-    }
-    &__chat{
-        box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.5);
-        border-radius: 5px;
-        background-color: #fff;
-        height: 100%;
-        width: 70%;
-        overflow: hidden;
-    }
+    align-items: flex-start;
 }

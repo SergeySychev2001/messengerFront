@@ -10,7 +10,7 @@ import { UserEditModal, UserAvatarEditModal } from './index';
 
 const UserContainer: React.FC = () => {
 
-    const { avatar, city, day, month, name, surname, year, error, loading, id} = useTypedSelector(state => state.user);
+    const { userData, loading, error } = useTypedSelector(state => state.user);
     const {fetchUser} = useActions();
     const [userEditModal, setUserEditModal] = useState<boolean>(false);
     const [userAvatarEditModal, setUserAvatarEditModal] = useState<boolean>(false);
@@ -24,23 +24,30 @@ const UserContainer: React.FC = () => {
     }
     if(error){
         return <TextBlock text={error}/>;
-    }else{
+    }
+    if(userData){
         return (
             <>
                 {userAvatarEditModal ? <UserAvatarEditModal modal={() => setUserAvatarEditModal(false)}/> : null}
                 {userEditModal ? <UserEditModal modal={() => setUserEditModal(false)}/> : null}
                 <User 
-                    avatar={avatar ? `http://127.0.0.1:4000/api/users/user/avatar/${id}` : avatarImg}
-                    name={name ? name : 'Не указано'}
-                    surname={surname ? surname : 'Не указано'}
-                    day={day ? day : 1}
-                    month={Months[month ? month : 0]}
-                    year={year ? year : 1978}
-                    city={city === null ? 'Не указано' : city}
+                    avatar={userData.avatar ? 
+                        `http://127.0.0.1:4000/api/users/user/avatar/${userData.id}` : 
+                        avatarImg}
+                    name={userData.name}
+                    surname={userData.surname}
+                    day={userData.day}
+                    month={Months[userData.month]}
+                    year={userData.year}
+                    city={userData.city === null ? 'Не указано' : userData.city}
                     userEditModal={() => setUserEditModal(true)}
                     userAvatarEditModal={() => setUserAvatarEditModal(true)}
                 />
             </>    
+        )
+    }else{
+        return(
+            <></>
         )
     }
  

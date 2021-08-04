@@ -2,14 +2,16 @@
     position: relative;
     height: 100%;
     width: 100%;
-    background-color: #8b9efc;
+    background: url('../image/background.jpg') 100% 100% / cover no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow-x: hidden;
     &__form{
         width: 400px;
         height: 550px;
-        background-color: #fff;
+        background-color: rgba($color: #000, $alpha: 0.1);
+        border: 1px solid rgb(175, 175, 175);
         border-radius: 5px;
         display: flex;
         flex-direction: column;
@@ -29,8 +31,10 @@
                 height: 40px;
                 border-radius: 5px;
                 border: 0;
-                background-color: rgb(123, 131, 255);
-                font-weight: 700;
+                background-color: #3f52ff;
+                cursor: pointer;
+                font-size: 20px;
+                color: white;
                 cursor: pointer;
             }
             &__date_of_birth{

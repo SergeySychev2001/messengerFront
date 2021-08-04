@@ -70,13 +70,16 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    & select {
+        font-size: 20px;
+    }
     & > select:nth-child(1){
         width: 20%;
     }
     & > select:nth-child(2){
-        width: 45%;
+        width: 50%;
     }
     & > input{
-        width: 28%;
+        width: 23%;
     }
 }

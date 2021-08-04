@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import '../styles/UserAvatarEditModal.scss';
 import closeBtn from '../image/close-btn.svg';
 import { useTypedSelector } from "../hooks/useTypedSelector";
-import { Modal } from './common/';
-import { useHistory } from "react-router";
+import { useActions } from "../hooks/useActions";
 
 type UserAvatarEditModalContainerProps = {
     modal: () => void
@@ -11,9 +10,8 @@ type UserAvatarEditModalContainerProps = {
 
 const UserAvatarEditModalContainer: React.FC<UserAvatarEditModalContainerProps> = ({modal}) => {
 
-    const {id} = useTypedSelector(state => state.user);
-    const history = useHistory();
-    const [errorModal, setErrorModal] = useState<string>();
+    const { userData } = useTypedSelector(state => state.user);
+    const { notificationsListItemIsAdded, userAvatarIsFetch, userIsLoaded } = useActions();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -24,28 +22,31 @@ const UserAvatarEditModalContainer: React.FC<UserAvatarEditModalContainerProps> 
         formData.append('avatar', target.avatar.files[0]);
         const fileType = target.avatar.value.split('.').pop();
         if(fileType === 'jpg'){
-            fetch(`http://127.0.0.1:4000/api/users/user/edit/avatar/${id}`, {
+            userAvatarIsFetch();
+            if(userData) console.log(window.frames.top);
+            fetch(`http://127.0.0.1:4000/api/users/user/edit/avatar/${userData?.id}`, {
                 method: 'POST',
                 body: formData
             })
-            .then(res => {
-                history.go(0);
+            .then( async (res) => {
+                const response = await res.json();
+                notificationsListItemIsAdded('Аватарка успешно обновлена');
+                userIsLoaded(response);
+                modal();
             })
             .catch(err => {
-                console.log(err);
-                setErrorModal('Не удалось обновить аватарку');
+                notificationsListItemIsAdded('Не удалось обновить аватарку');
+                modal();
             });
         } else {
-            setErrorModal('Файл должен быть с расширением ".jpg"');
+            notificationsListItemIsAdded('Файл должен быть с расширением ".jpg"');
+            modal();
         }
         
     }
 
     return(
-        <>
-            {errorModal ? <Modal text={errorModal} exitModal={() => setErrorModal(undefined)}/> : null}
-            <UserAvatarEditModal handleSubmit={handleSubmit} modal={() => modal()}/>
-        </>
+        <UserAvatarEditModal handleSubmit={handleSubmit} modal={() => modal()}/>
     )
 }
 

@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { useActions } from "../hooks/useActions";
 import { UserType } from "../redux/types/subscriptions";
+import { MessageModal } from './index';
 
 type SubscribtionsUserModalContainerProps = {
     id: string,
@@ -39,6 +40,7 @@ const SubscribtionsUserModalContainer: React.FC<SubscribtionsUserModalContainerP
         notificationsListItemIsAdded
     } = useActions();
     const [errModal, setErrModal] = useState<string | null>(null);
+    const [messageModal, setMessageModal] = useState<boolean>(false);
     const [submitBtn, setSubmitBtn] = useState<string>('Загрузка');
 
     useEffect(() => {
@@ -67,70 +69,85 @@ const SubscribtionsUserModalContainer: React.FC<SubscribtionsUserModalContainerP
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if(submitBtn === 'Подписаться'){
-            fetch('http://127.0.0.1:4000/api/subscribtions/add', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    firstUserId: sessionStorage.getItem('userId'),
-                    secondUserId: id
-                })
-            })
-            .then( async (res) => {
-                const response: string = await res.json();
-                if (res.status === 200) {
-                    notificationsListItemIsAdded(`Вы подписались на пользователя ${surname} ${name}`);
-                    setSubmitBtn('Отписаться'); 
-                }
-                if (res.status === 500) {
-                    setErrModal(response)
-                }
-            })
-            .catch(err => setErrModal('Ошибка соединения'));
+        const target = e.target as typeof e.target & {
+            name: string
         }
-        if (submitBtn === 'Отписаться'){
-            fetch('http://127.0.0.1:4000/api/subscribtions/delete', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    firstUserId: sessionStorage.getItem('userId'),
-                    secondUserId: id
-                })
-            })
-            .then(async (res) => {
-                const response: string = await res.json();
-                if (res.status === 200) {
-                    notificationsListItemIsAdded(`Вы отписались от пользователя ${surname} ${name}`);
-                    if(!isAll){
-                        const newList: UserType[] | null = list
-                        ? list.filter(({id}) => id !== response)
-                        : null;
-                        if(newList){
-                            if(newList.length > 0){
-                                subscribtionsListIsLoaded(newList);
+        switch(target.name){
+            case 'subscribe': {
+                if(submitBtn === 'Подписаться'){
+                    fetch('http://127.0.0.1:4000/api/subscribtions/add', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            firstUserId: sessionStorage.getItem('userId'),
+                            secondUserId: id
+                        })
+                    })
+                    .then( async (res) => {
+                        const response: string = await res.json();
+                        if (res.status === 200) {
+                            notificationsListItemIsAdded(`Вы подписались на пользователя ${surname} ${name}`);
+                            setSubmitBtn('Отписаться'); 
+                        }
+                        if (res.status === 500) {
+                            setErrModal(response)
+                        }
+                    })
+                    .catch(err => setErrModal('Ошибка соединения'));
+                }
+                if (submitBtn === 'Отписаться'){
+                    fetch('http://127.0.0.1:4000/api/subscribtions/delete', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            firstUserId: sessionStorage.getItem('userId'),
+                            secondUserId: id
+                        })
+                    })
+                    .then(async (res) => {
+                        const response: string = await res.json();
+                        if (res.status === 200) {
+                            notificationsListItemIsAdded(`Вы отписались от пользователя ${surname} ${name}`);
+                            if(!isAll){
+                                const newList: UserType[] | null = list
+                                ? list.filter(({id}) => id !== response)
+                                : null;
+                                if(newList){
+                                    if(newList.length > 0){
+                                        subscribtionsListIsLoaded(newList);
+                                    } else {
+                                        subscribtionsListIsLoaded(null);
+                                    }
+                                }
                             } else {
-                                subscribtionsListIsLoaded(null);
+                                setSubmitBtn('Подписаться');
                             }
                         }
-                    } else {
-                        setSubmitBtn('Подписаться');
-                    }
+                        if (res.status === 500) {
+                            setErrModal(response)
+                        }
+                    })
+                    .catch(err => setErrModal('Ошибка соединения'))
                 }
-                if (res.status === 500) {
-                    setErrModal(response)
-                }
-            })
-            .catch(err => setErrModal('Ошибка соединения'))
+                return null;
+            }
+            case 'sendMessage': {
+                setMessageModal(true);
+                return null;
+            }
+            default: return null;
         }
+        
     }
 
     return(
         <>
             {errModal ? <Modal text={errModal} exitModal={() => setErrModal(null)}/> : null}
+            {messageModal ? <MessageModal id={id} name={name} surname={surname} exitModal={() => setMessageModal(false)}/> : null}
             <SubscribtionsUserModal avatar={avatar}
                                 name={name}
                                 surname={surname}
@@ -183,8 +200,12 @@ const SubscribtionsUserModal: React.FC<SubscribtionsUserModalType> = ({
                     <div className="data__item">{day} {month} {year}</div>
                     <div className="data__item">{city}</div>
                 </div>
-                <form onSubmit={handleSubmit}>
-                    <button className="subscribtions-user-modal__edit"
+                <form className="subscribtions-user-modal__form">
+                    <button onClick={handleSubmit} name="sendMessage" className="subscribtions-user-modal__btn">
+                        Отправить сообщение
+                    </button>
+                    <button onClick={handleSubmit} name="subscribe" 
+                            className="subscribtions-user-modal__btn"
                             style={ submitBtn === 'Загрузка' ? {backgroundColor: 'green'} 
                                     : submitBtn === 'Подписаться' ? {backgroundColor: 'blue'}
                                     : submitBtn === 'Отписаться' ? {backgroundColor: 'red'}

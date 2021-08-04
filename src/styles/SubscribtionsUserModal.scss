@@ -53,14 +53,19 @@
             }
         }
     }
-    &__edit{
+    &__form{
+        display: flex;
+        justify-content: space-between;
+        width: 80%;
+    }
+    &__btn{
         height: 50px;
-        width: 200px;
+        width: 150px;
         font-size: 20px;
         color: white;
         border: none;
         border-radius: 5px;
-        background-color: #2D3CC0;
+        background-color: #3f52ff;
         cursor: pointer;
     }
 }

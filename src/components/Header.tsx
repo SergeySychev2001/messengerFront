@@ -19,11 +19,11 @@ const Header: React.FC<HeaderProps> = ({history}) => {
             <span className="header__title">Messenger</span>
             <nav className="header__nav">
                 <ul className="nav__items">
-                    <Link className="nav__item" to="/messages">Сообщения</Link>
-                    <Link className="nav__item" to="/news">Новости</Link>
-                    <Link className="nav__item" to="/subscribtions">Подписки</Link>
-                    <Link className="nav__item" to="/account">Аккаунт</Link>
-                    <li onClick={logOut} className="nav__item">Выход</li>
+                    <Link className="nav__item nav__item_link" to="/messages">Сообщения</Link>
+                    <Link className="nav__item nav__item_link" to="/news">Новости</Link>
+                    <Link className="nav__item nav__item_link" to="/subscribtions">Подписки</Link>
+                    <Link className="nav__item nav__item_link" to="/account">Аккаунт</Link>
+                    <li onClick={logOut} className="nav__item nav__item_exit">Выход</li>
                 </ul>
             </nav>
         </header>

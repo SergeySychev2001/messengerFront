@@ -1,15 +1,14 @@
 import React from "react";
 import { useState } from "react";
-import {Link, withRouter} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
+import { useActions } from "../hooks/useActions";
 import '../styles/Authorization.scss';
+import { Notifications } from "./common";
 
-type AuthorizationProps = {
-    history: any;
-}
+const Authorization: React.FC = () => {
 
-const Authorization: React.FC<AuthorizationProps> = ({history}) => {
-
-    const [error, setError] = useState<any>(null);
+    const history = useHistory();
+    const { notificationsListItemIsAdded } = useActions();
 
     const handleSubmit = (e: React.SyntheticEvent): void => {
         e.preventDefault();
@@ -18,7 +17,7 @@ const Authorization: React.FC<AuthorizationProps> = ({history}) => {
             password: {value: string}
         }
         if(target.login.value === '' || target.password.value === ''){
-            setError(<span style={{color: 'red'}}>Неверный логин или пароль</span>);
+            notificationsListItemIsAdded('Неверный логин или пароль');
         } else {
             const body = {
                 login: target.login.value,
@@ -35,10 +34,10 @@ const Authorization: React.FC<AuthorizationProps> = ({history}) => {
             .then( async (res) => {
                 const resData = await res.json();
                 if(res.status === 404){
-                    setError(<span style={{color: 'red'}}>{resData}</span>);
+                    notificationsListItemIsAdded(resData);
                 }
                 if(res.status === 500){
-                    setError(<span style={{color: 'red'}}>{resData}</span>);
+                    notificationsListItemIsAdded(resData);
                 }
                 if(res.status === 200){
                     sessionStorage.setItem('userId', resData.userId);
@@ -46,16 +45,16 @@ const Authorization: React.FC<AuthorizationProps> = ({history}) => {
                     history.push('/account');
                 }
             })
-            .catch(err => console.log(err));
+            .catch(err => notificationsListItemIsAdded('Ошибка соединения'));
         }
     }
 
     return(
         <div className="authorization">
+            <Notifications/>
             <form onSubmit={handleSubmit} className="authorization__form">
                 <input name="login" autoComplete="false" className="form__input" type="text" placeholder="Логин"/>
                 <input name="password" autoComplete="false" className="form__input" type="password" placeholder="Пароль" />
-                {error}
                 <input className="form__submit" type="submit" value="Войти" />
                 <Link className="form__reg-btn" to="/registration">Зарегистрироваться</Link>
             </form>
@@ -63,4 +62,4 @@ const Authorization: React.FC<AuthorizationProps> = ({history}) => {
     )
 }
 
-export default withRouter(Authorization);
+export default Authorization;

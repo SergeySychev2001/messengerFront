@@ -35,5 +35,17 @@
         margin-left: 25px;
         text-decoration: none;
         cursor: pointer;
+        transition: color 0.2s;
+        &_link{
+            &:hover{
+                color: rgb(123, 123, 255)
+            }
+        }
+        &_exit{
+            &:hover{
+                color: rgb(255, 86, 86)
+            }
+        }
+
     }
 }

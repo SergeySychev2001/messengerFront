@@ -1,14 +1,15 @@
 .authorization{
     height: 100%;
     width: 100%;
-    background-color: #8b9efc;
+    background: url('../image/background.jpg') 100% 100% / cover no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
     &__form{
         width: 400px;
         height: 270px;
-        background-color: #fff;
+        background-color: rgba($color: #000, $alpha: 0.1);
+        border: 1px solid rgb(175, 175, 175);
         border-radius: 5px;
         display: flex;
         flex-direction: column;
@@ -16,19 +17,21 @@
         justify-content: space-evenly;
         & .form{
             &__input{
+                border-radius: 5px;
+                border: 1px solid rgb(139, 139, 255);
                 width: 90%;
                 height: 40px;
                 font-size: 20px;
-                border-radius: 5px;
-                border: 1px solid rgb(139, 139, 255);
             }
             &__submit{
                 width: 60%;
                 height: 40px;
                 border-radius: 5px;
                 border: 0;
-                background-color: rgb(123, 131, 255);
-                font-weight: 700;
+                background-color: #3f52ff;
+                cursor: pointer;
+                font-size: 20px;
+                color: white;
             }
             &__reg-btn{
                 display: flex;
@@ -37,10 +40,10 @@
                 width: 60%;
                 height: 40px;
                 border-radius: 5px;
-                background-color: rgb(199, 131, 4);
-                color: black;
+                background-color: red;
+                color: white;
                 text-decoration: none;
-                font-weight: 700;
+                font-size: 20px;
             }
         }
     }

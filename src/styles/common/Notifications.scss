@@ -2,9 +2,11 @@
     position: absolute;
     top: 100px;
     right: 20px;
+    z-index: 2;
     &__container{
         width: 300px;
         display: flex;
+        box-sizing: border-box;
         flex-direction: column;
     }
     &__item{

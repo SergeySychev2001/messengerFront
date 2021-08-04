@@ -27,24 +27,23 @@
             width: 0;
         }
     }
-}
-
-.form{
-    &__input{
-        width: 100%;
-        height: 40px;
-        font-size: 20px;
-        border-radius: 5px;
-        border: 1px solid rgb(139, 139, 255);
-        box-sizing: border-box;
-    }
-    &__submit{
-        width: 25%;
-        height: 40px;
-        border-radius: 5px;
-        border: 0;
-        background-color: rgb(123, 131, 255);
-        font-weight: 700;
-        cursor: pointer;
+    & .form{
+        &__input{
+            width: 100%;
+            height: 40px;
+            font-size: 20px;
+            border-radius: 5px;
+            border: 1px solid rgb(139, 139, 255);
+            box-sizing: border-box;
+        }
+        &__submit{
+            width: 25%;
+            height: 40px;
+            border-radius: 5px;
+            border: 0;
+            background-color: rgb(123, 131, 255);
+            font-weight: 700;
+            cursor: pointer;
+        }
     }
 }

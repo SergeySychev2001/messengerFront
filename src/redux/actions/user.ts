@@ -1,75 +1,34 @@
 import { Dispatch } from 'react';
-import { UserIsFetchType, UserIsLoadedType, UserIsRemovedType, UserIsFailedType, UserType } from '../types/user';
+import { UserIsFetchType, UserIsLoadedType, UserIsFailedType, UserAvatarIsFetch, UserType } from '../types/user';
 
 const userIsFetch = (): UserIsFetchType => {
     return {
-        type: 'USER_IS_FETCH',
-        payload: {
-            id: 'Загрузка',
-            name:'Загрузка',
-            surname: 'Загрузка',
-            avatar: false,
-            day: 0,
-            month: 0,
-            year: 0,
-            city: 'Загрузка',
-            error: null,
-            loading: true
-        }
+        type: 'USER_IS_FETCH'
     }
 }
 
 const userIsLoaded = (userData: UserType): UserIsLoadedType => {
+    const date = new Date(userData.year);
+    const formatedUserData = {
+        id: userData.id,
+        name: userData.name,
+        surname: userData.surname,
+        year: date.getFullYear(),
+        month: date.getMonth(),
+        day: date.getDate(),
+        city: userData.city,
+        avatar: userData.avatar
+    }
     return {
         type: 'USER_IS_LOADED',
-        payload: {
-            id: userData.id,
-            name: userData.name,
-            surname: userData.surname,
-            avatar: userData.avatar,
-            day: userData.day,
-            month: userData.month,
-            year: userData.year,
-            city: userData.city,
-            error: null,
-            loading: false
-        }
-    }
-}
-
-const userIsRemoved = (): UserIsRemovedType => {
-    return {
-        type: 'USER_IS_REMOVED',
-        payload: {
-            id: null,
-            name: null,
-            surname: null,
-            avatar: false,
-            day: null,
-            month: null,
-            year: null,
-            city: null,
-            error: null,
-            loading: false
-        }
+        payload: formatedUserData
     }
 }
 
 const userIsFailed = (error: string): UserIsFailedType => {
     return {
         type: 'USER_IS_FAILED',
-        payload: {
-            id: null,
-            name: null,
-            surname: null,
-            avatar: false,
-            day: null,
-            month: null,
-            year: null,
-            city: null,
-            error: error,
-            loading: false
-        }
+        error
     }
 }
 
@@ -81,19 +40,7 @@ const fetchUser = () => (dispatch: Dispatch<any>) => {
         .then(async (res) => {
             const response = await res.json();
             if(res.status === 200){
-                const date = new Date(response.year);
-                dispatch(userIsLoaded({
-                    id: response.id,
-                    name: response.name,
-                    surname: response.surname,
-                    year: date.getFullYear(),
-                    month: date.getMonth(),
-                    day: date.getDate(),
-                    city: response.city,
-                    avatar: response.avatar,
-                    error: null,
-                    loading: false
-                }))
+                dispatch(userIsLoaded(response));
             }
             if(res.status === 404){
                 dispatch(userIsFailed('Не удалось получить данные'));
@@ -105,10 +52,16 @@ const fetchUser = () => (dispatch: Dispatch<any>) => {
         });
 }
 
+const userAvatarIsFetch = (): UserAvatarIsFetch => {
+    return{
+        type: 'USER_AVATAR_IS_FETCH'
+    }
+}
+
 export {
     userIsFetch,
     userIsLoaded,
-    userIsRemoved,
     userIsFailed,
+    userAvatarIsFetch,
     fetchUser
 }

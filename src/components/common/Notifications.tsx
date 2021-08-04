@@ -9,7 +9,6 @@ import { useEffect } from "react";
 
 const NotificationsContainer: React.FC = () => {
     const {list} = useTypedSelector(state => state.notifications);
-    console.log(list)
     return <Notifications list={list ? list : undefined}/>
 }
 

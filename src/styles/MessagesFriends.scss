@@ -1,0 +1,17 @@
+.messages-friends{
+    list-style: none;
+    width: 25%;
+    max-height: 500px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba($color: #000, $alpha: 0.3);
+    border: 1px solid rgb(55, 55, 55);
+    border-radius: 5px;
+    overflow-y: scroll;
+    &::-webkit-scrollbar{
+        width: 0;
+    }
+}

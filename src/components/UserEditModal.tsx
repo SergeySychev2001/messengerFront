@@ -4,7 +4,7 @@ import '../styles/UserEditModal.scss';
 import closeBtn from '../image/close-btn.svg';
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import {Modal} from './common/index';
-import { useHistory } from "react-router";
+import { useActions } from "../hooks/useActions";
 
 type UserEditModalContainerProps = {
     modal: () => void;
@@ -13,10 +13,10 @@ type UserEditModalContainerProps = {
 const UserEditModalContainer: React.FC<UserEditModalContainerProps> = ({
     modal
 }) => {
-    const { city, day, month, name, surname, year, id} = useTypedSelector(state => state.user);
-    const history = useHistory();
-    const [dayState, setDayState] = useState<number>(day ? day : 0);
-    const [monthState, setMonthState] = useState<number>(month ? month : 0);
+    const { userData } = useTypedSelector(state => state.user);
+    const { notificationsListItemIsAdded, userIsLoaded } = useActions();
+    const [dayState, setDayState] = useState<number>(userData ? userData.day : 0);
+    const [monthState, setMonthState] = useState<number>(userData ? userData.month : 0);
     const [errorModal, setErrorModal] = useState<string | null>(null);
 
     useEffect(() => {
@@ -49,7 +49,7 @@ const UserEditModalContainer: React.FC<UserEditModalContainerProps> = ({
         if(!body.name || !body.surname || !body.year) {
             setErrorModal('Заполните все поля')
         } else {
-            fetch(`http://127.0.0.1:4000/api/users/user/edit/data/${id}`, {
+            fetch(`http://127.0.0.1:4000/api/users/user/edit/data/${userData?.id}`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -57,8 +57,16 @@ const UserEditModalContainer: React.FC<UserEditModalContainerProps> = ({
                 },
                 body: JSON.stringify(body)
             })
-            .then(res => history.go(0))
-            .catch(err => setErrorModal('Ошибка обновления данных'));
+            .then( async (res) => {
+                const response = await res.json();
+                notificationsListItemIsAdded('Данные успешно обновлены');
+                modal();
+                userIsLoaded(response);
+            })
+            .catch(err => {
+                notificationsListItemIsAdded('Ошибка соединения');
+                modal();
+            });
         };
         
     }
@@ -80,12 +88,12 @@ const UserEditModalContainer: React.FC<UserEditModalContainerProps> = ({
         <>
             {errorModal ? <Modal text={errorModal} exitModal={() => setErrorModal(null)}/> : null}
             <UserEditModal
-                name={name ? name : 'Не указано'}
-                surname={surname ? surname : 'Не указано'}
+                name={userData ? userData.name : 'Не указано'}
+                surname={userData ? userData.surname : 'Не указано'}
                 day={dayState}
                 month={monthState}
-                year={year ? year : 1978}
-                city={city ? city : 'Не указано'}
+                year={userData ? userData.year : 1978}
+                city={userData ? userData.city ? userData.city : 'Не указано' : 'Не указано'}
                 modal={modal}
                 handleSubmit={handleSubmit}
                 handleChange={handleChange}
