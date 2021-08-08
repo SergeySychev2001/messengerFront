@@ -8,7 +8,7 @@ const MessagesFriends: React.FC = () => {
 
     const { chatList } = useTypedSelector(state => state.messages);
     const content = chatList?.map(({user}) => {
-        return <MessagesFriendsItem name={user.name} surname={user.surname}/>
+        return <MessagesFriendsItem key={user.id} id={user.id} name={user.name} surname={user.surname}/>
     });
     
     return(

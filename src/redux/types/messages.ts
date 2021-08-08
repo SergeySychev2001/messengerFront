@@ -2,6 +2,7 @@ type MessagesStateType = {
     chatList: Array<ChatListType> | undefined,
     loading: boolean,
     error: string | undefined
+    selectedUserId: string | undefined
 }
 
 type ChatListType = {
@@ -39,17 +40,32 @@ type MessagesIsFailedType = {
 
 type MessageIsAddedType = {
     type: 'MESSAGE_IS_ADDED',
+    message: MessageType,
+    user: UserType
+}
+
+type MyMessageIsAddedType = {
+    type: 'MY_MESSAGE_IS_ADDED',
     message: MessageType
+}
+
+type UserIsSelected = {
+    type: 'USER_IS_SELECTED',
+    userId: string
 }
 
 type ActionType = {
     type: 'MESSAGES_IS_FETCH' |
     'MESSAGES_IS_LOADED' |
     'MESSAGES_IS_FAILED' |
-    'MESSAGE_IS_ADDED',
+    'MESSAGE_IS_ADDED' |
+    'USER_IS_SELECTED' |
+    'MY_MESSAGE_IS_ADDED',
     chatList: Array<ChatListType>,
     error: string,
-    message: MessageType
+    message: MessageType,
+    user: UserType,
+    userId: string
 }
 
 export type {
@@ -58,6 +74,10 @@ export type {
     MessagesIsLoadedType,
     MessagesIsFailedType,
     MessageIsAddedType,
+    MyMessageIsAddedType,
     ChatListType,
-    ActionType
+    UserIsSelected,
+    ActionType,
+    MessageType,
+    UserType
 }

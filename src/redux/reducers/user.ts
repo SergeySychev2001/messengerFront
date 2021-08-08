@@ -26,11 +26,13 @@ const reducer = (state = initialState, action: ActionType): UserStateType => {
                 loading: false,
                 error: action.error
             }
-        case 'USER_AVATAR_IS_FETCH': {
-            const newUserData = state.userData ? {...state.userData, avatar: false} : null;
+        case 'USER_AVATAR_IS_UPDATED': {
+            const updatedUser = state.userData ?
+            {...state.userData, avatar: action.avatar}:
+            null
             return {
                 ...state,
-                userData: newUserData
+                userData: updatedUser
             }
         }
         default: return {...state};

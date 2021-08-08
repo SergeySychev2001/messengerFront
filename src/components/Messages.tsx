@@ -7,12 +7,23 @@ import { TextBlock } from './common';
 
 const MessagesContainer: React.FC = () => {
 
-    const { fetchMessages } = useActions();
+    const { fetchMessages, notificationsListItemIsAdded, messageIsAdded } = useActions();
     const { loading, error} = useTypedSelector(state => state.messages);
+    const { socket } = useTypedSelector(state => state.socket);
 
     useEffect(() => {
         fetchMessages();
-    }, []);
+        socket?.off('sendMessageToClient');
+        socket?.on('sendMessageToClient', ({data}) => {
+            messageIsAdded(data.message, data.user);
+        });
+        return (() => {
+            socket?.off('sendMessageToClient');
+            socket?.on('sendMessageToClient', (data) => {
+                notificationsListItemIsAdded('Получено сообщение');
+            });
+        });
+    }, [socket]);
 
     if(loading){
         return <TextBlock text="Загрузка сообщений..." style={{marginTop: '20px'}}/>

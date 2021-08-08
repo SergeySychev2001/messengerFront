@@ -1,7 +1,7 @@
 import { 
     fetchUser, 
     userIsLoaded,
-    userAvatarIsFetch
+    userAvatarIsUpdated
 } from '../redux/actions/user';
 import { 
     fetchSearchList, 
@@ -23,7 +23,7 @@ import {
     notificationsListItemIsAdded
 } from '../redux/actions/notifications';
 import { socketIsConnected, socketIsDisconnected } from '../redux/actions/socket';
-import { fetchMessages } from '../redux/actions/messages';
+import { fetchMessages, userIsSelected, messageIsAdded, myMessageIsAdded } from '../redux/actions/messages';
 import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
 
@@ -32,8 +32,7 @@ export const useActions = () => {
     const dispatch = useDispatch();
     return bindActionCreators({
         fetchUser,
-        userIsLoaded, 
-        userAvatarIsFetch,
+        userIsLoaded,
         fetchSearchList, 
         fetchSubscribtionsList,
         subscribtionsListIsLoaded,
@@ -49,6 +48,10 @@ export const useActions = () => {
         notificationsListItemIsAdded,
         socketIsConnected,
         socketIsDisconnected,
-        fetchMessages
+        fetchMessages,
+        userIsSelected,
+        userAvatarIsUpdated,
+        messageIsAdded,
+        myMessageIsAdded
     }, dispatch);
 }

@@ -11,7 +11,7 @@ type UserAvatarEditModalContainerProps = {
 const UserAvatarEditModalContainer: React.FC<UserAvatarEditModalContainerProps> = ({modal}) => {
 
     const { userData } = useTypedSelector(state => state.user);
-    const { notificationsListItemIsAdded, userAvatarIsFetch, userIsLoaded } = useActions();
+    const { notificationsListItemIsAdded ,userAvatarIsUpdated } = useActions();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -22,16 +22,14 @@ const UserAvatarEditModalContainer: React.FC<UserAvatarEditModalContainerProps> 
         formData.append('avatar', target.avatar.files[0]);
         const fileType = target.avatar.value.split('.').pop();
         if(fileType === 'jpg'){
-            userAvatarIsFetch();
-            if(userData) console.log(window.frames.top);
             fetch(`http://127.0.0.1:4000/api/users/user/edit/avatar/${userData?.id}`, {
                 method: 'POST',
                 body: formData
             })
             .then( async (res) => {
                 const response = await res.json();
+                userAvatarIsUpdated(response.avatar);
                 notificationsListItemIsAdded('Аватарка успешно обновлена');
-                userIsLoaded(response);
                 modal();
             })
             .catch(err => {

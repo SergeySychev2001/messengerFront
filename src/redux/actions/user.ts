@@ -1,5 +1,10 @@
 import { Dispatch } from 'react';
-import { UserIsFetchType, UserIsLoadedType, UserIsFailedType, UserAvatarIsFetch, UserType } from '../types/user';
+import { 
+    UserIsFetchType, 
+    UserIsLoadedType, 
+    UserIsFailedType, 
+    UserType, 
+    UserAvatarIsUpdatedType } from '../types/user';
 
 const userIsFetch = (): UserIsFetchType => {
     return {
@@ -52,9 +57,10 @@ const fetchUser = () => (dispatch: Dispatch<any>) => {
         });
 }
 
-const userAvatarIsFetch = (): UserAvatarIsFetch => {
+const userAvatarIsUpdated = (avatar: string): UserAvatarIsUpdatedType => {
     return{
-        type: 'USER_AVATAR_IS_FETCH'
+        type: 'USER_AVATAR_IS_UPDATED',
+        avatar
     }
 }
 
@@ -62,6 +68,6 @@ export {
     userIsFetch,
     userIsLoaded,
     userIsFailed,
-    userAvatarIsFetch,
-    fetchUser
+    fetchUser,
+    userAvatarIsUpdated
 }

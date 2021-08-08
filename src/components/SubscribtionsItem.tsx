@@ -6,13 +6,13 @@ import { SubscribtionsUserModal } from './index';
 
 type SubscribtionsItemProps = {
     id: string
-    avatar: boolean
+    avatar: string | null
     name: string
     surname: string
     day: number
     month: string
     year: number
-    city: string,
+    city: string
     isAll?: boolean
 }
 
@@ -30,7 +30,7 @@ const SubscribtionsItem: React.FC<SubscribtionsItemProps> = ({
 
     const [userModal, setUserModal] = useState<boolean>(false);
 
-    const avatarSource: string = avatar ? `http://127.0.0.1:4000/api/users/user/avatar/${id}` : avatarImg;
+    const avatarSource: string = avatar ? avatar : avatarImg;
     const userName = `${surname} ${name}`;
     return(
         <>

@@ -88,7 +88,7 @@ const NewsList: React.FC<NewsListProps> = ({
     favourites,
     handleChange
 }) => {
-    const sortedList = list ? list.sort(sortByField('date')) : null;
+    const sortedList = list ? list.length > 0 ? list.sort(sortByField('date')) : null : null;
     const listContent = sortedList ? sortedList.map((item, idx) => {
         return <NewsListItem    key={idx}
                                 id={item.id}

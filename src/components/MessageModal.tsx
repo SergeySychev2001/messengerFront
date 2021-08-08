@@ -3,6 +3,7 @@ import '../styles/MessageModal.scss';
 import closeBtn from '../image/close-btn.svg';
 import { ReactEventHandler } from 'react';
 import { useActions } from '../hooks/useActions';
+import { useTypedSelector } from '../hooks/useTypedSelector';
 
 type MessageModalContainerType = {
     exitModal: () => void,
@@ -18,6 +19,7 @@ const MessageModalContainer: React.FC<MessageModalContainerType> = ({
     surname
 }) => {
     const { notificationsListItemIsAdded } = useActions();
+    const { socket } = useTypedSelector(state => state.socket);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -37,9 +39,13 @@ const MessageModalContainer: React.FC<MessageModalContainerType> = ({
                 secondUserId: id
             })
         })
-        .then((res) => {
+        .then( async (res) => {
+            const response = await res.json();
             if(res.status === 200){
                 notificationsListItemIsAdded('Сообщение отправлено');
+                socket?.emit('sendMessageFromClient', {
+                    ...response
+                });
                 exitModal();
             }
             if(res.status === 500){

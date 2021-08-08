@@ -8,7 +8,7 @@ type UserType = {
     id: string,
     name: string,
     surname: string,
-    avatar: boolean,
+    avatar: string | null,
     day: number,
     month: number,
     year: number,
@@ -29,14 +29,19 @@ type UserIsFailedType = {
     error: string
 }
 
-type UserAvatarIsFetch = {
-    type: 'USER_AVATAR_IS_FETCH'
+type UserAvatarIsUpdatedType = {
+    type: 'USER_AVATAR_IS_UPDATED',
+    avatar: string
 }
 
 type ActionType = {
-    type: 'USER_IS_FETCH' | 'USER_IS_LOADED' | 'USER_IS_FAILED' | 'USER_AVATAR_IS_FETCH',
+    type: 'USER_IS_FETCH' | 
+    'USER_IS_LOADED' | 
+    'USER_IS_FAILED' | 
+    'USER_AVATAR_IS_UPDATED',
     payload: UserType,
-    error: string
+    error: string,
+    avatar: string
 }
 
 export type {
@@ -45,6 +50,6 @@ export type {
     UserIsFetchType,
     UserIsLoadedType,
     UserIsFailedType,
-    UserAvatarIsFetch,
+    UserAvatarIsUpdatedType,
     ActionType
 }

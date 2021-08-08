@@ -15,7 +15,7 @@ type UserType = {
     id: string,
     name: string,
     surname: string,
-    avatar: boolean,
+    avatar: string | null,
     day: number,
     month: number,
     year: number,

@@ -5,19 +5,13 @@ import avatarImg from '../image/avatar.gif';
 import { TextBlock } from "./common";
 import '../styles/User.scss';
 import {useTypedSelector} from '../hooks/useTypedSelector';
-import { useActions } from "../hooks/useActions";
 import { UserEditModal, UserAvatarEditModal } from './index';
 
 const UserContainer: React.FC = () => {
 
     const { userData, loading, error } = useTypedSelector(state => state.user);
-    const {fetchUser} = useActions();
     const [userEditModal, setUserEditModal] = useState<boolean>(false);
     const [userAvatarEditModal, setUserAvatarEditModal] = useState<boolean>(false);
-
-    useEffect(() => {
-        fetchUser();
-    }, []);
 
     if(loading){
         return <TextBlock text='Загрузка'/>
@@ -32,7 +26,7 @@ const UserContainer: React.FC = () => {
                 {userEditModal ? <UserEditModal modal={() => setUserEditModal(false)}/> : null}
                 <User 
                     avatar={userData.avatar ? 
-                        `http://127.0.0.1:4000/api/users/user/avatar/${userData.id}` : 
+                        userData.avatar : 
                         avatarImg}
                     name={userData.name}
                     surname={userData.surname}
@@ -76,6 +70,7 @@ const User: React.FC<UserProps> = ({
     userEditModal,
     userAvatarEditModal
 }) => {
+    console.log(avatar)
     return(
         <div className="user">
             <div className="user__avatar">

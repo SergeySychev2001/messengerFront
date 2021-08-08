@@ -5,12 +5,18 @@ import '../styles/Main.scss';
 import { Notifications } from './common';
 import socketIO from '../socket/socket';
 import { useActions } from '../hooks/useActions';
+import { useTypedSelector } from '../hooks/useTypedSelector';
 
 const Main: React.FC = () => {
-    const { socketIsConnected, socketIsDisconnected } = useActions();
+    const { socketIsConnected, socketIsDisconnected, fetchUser, notificationsListItemIsAdded } = useActions();
+    const { socket } = useTypedSelector(state => state.socket);
     useEffect(() => {
         const socket = socketIO();
         socketIsConnected(socket);
+        fetchUser()
+        socket.on('sendMessageToClient', (data) => {
+            notificationsListItemIsAdded('Получено сообщение');
+        });
         return () => {
             socket.disconnect()
             socketIsDisconnected()
